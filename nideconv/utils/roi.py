@@ -270,12 +270,11 @@ def _make_psc(data):
                           data=data, denom=denom)
 
 
-def _get_func_and_confounds(fmriprep_folder,
-                            sourcedata_folder):
+def _get_func_and_confounds(sourcedata_folder):
 
     from bids import BIDSLayout
-    fmriprep_layout = BIDSLayout(fmriprep_folder)
-    sourcedata_layout = BIDSLayout(sourcedata_folder)
+    sourcedata_layout = BIDSLayout(sourcedata_folder, derivatives=True)
+    fmriprep_layout = sourcedata_layout.derivatives['fMRIPrep']
 
     files = fmriprep_layout.get(extensions=['.nii', 'nii.gz'],
                                 modality='func', suffix='preproc')
